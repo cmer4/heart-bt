@@ -40,7 +40,7 @@ export class AppComponent {
 
   toggleFullScreen() {
     let winFeature = 'location=no,toolbar=no,menubar=no,scrollbars=no,resizable=yes';
-    window.open('https://www.heart-bt.com','null',winFeature);
+    window.open('https://heart-bt.web.app','null',winFeature);
   };
 
   connectHeartRateSensor() {
