@@ -1,38 +1,67 @@
 <ion-app>
-  
-  <ion-content [fullscreen]="true">
-    
-    <ion-grid>
-      <ion-col>
-        <ion-row>
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="314px" height="208.375px">
+
+  <ion-grid>
+    <ion-row *ngIf="demoIntervalHolder">
+      <div style="width: 100%; text-align: center">
+        <i>Demo heart rate (random) in progress. Connect real BT device to see actual rates</i>
+      </div>
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="12" size-sm>
+        <div style="text-align: center;">
+          <svg style="margin: auto; max-width: 360px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 314 208">
             <svg:defs>
               <pattern id="Pattern" x="93.3515%" y="0" width="314px" height="208.375px" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="314px" height="208.375px" fill="url(#grad1)"/>
-                <animate id="pulseRateAnimation" attributeName="x" from="0%" to="100%" [attr.dur]="(60000/currentHeartRate) + 'ms'" repeatCount="indefinite"/>
+                <rect x="0" y="0" width="314px" height="208.375px" fill="url(#grad1)" />
+                <animate *ngIf="currentHeartRate" attributeName="x" from="0%" to="100%"
+                  [attr.dur]="(60000/currentHeartRate) + 'ms'" repeatCount="indefinite" />
               </pattern>
               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%" spreadMethod="repeat">
-                <stop offset="0%" stop-color="rgb(0,0,0)" stop-opacity="0"/>
-                <stop offset="100%" stop-color="rgb(255,242,0)" stop-opacity="1"/>
+                <stop offset="0%" stop-color="rgb(0,0,0)" stop-opacity="0" />
+                <stop offset="100%" stop-color="rgb(255,242,0)" stop-opacity="1" />
               </linearGradient>
             </svg:defs>
-            <!-- <svg:text x="20" y="30" style="fill: grey">{{ statusText }}</svg:text> -->
-            <svg:path id="ekg" d="M0,100.58l98.75-0.347l-0.356,0.161l10.543-12.014c0.192-0.219,0.526-0.241,0.745-0.048 c0.042,0.037,0.081,0.085,0.108,0.131l17.389,29.442l-1.194,0.278l7.94-114.147c0.037-0.524,0.579-0.92,1.103-0.884 C135.512,3.186,136,3.576,136,4.047v0.005l10.8,189.472l-2.987-0.139l7.856-53.182c2.685-17.719,5.295-35.446,8.052-53.154 l-0.004-0.015c0.121-0.779,0.85-1.312,1.629-1.191c0.416,0.065,0.766,0.31,0.979,0.638l13.684,21.25l-1.703-0.453l15.002-7.618 l0.012-0.005c0.176-0.09,0.369-0.132,0.555-0.131l31.031,0.167l31.031,0.237c10.344,0.065,20.688,0.164,31.03,0.296L314,100.58v0.3 l-31.031,0.373c-10.344,0.138-20.688,0.242-31.031,0.312l-31.03,0.252L189.875,102l0.564-0.137l-14.934,7.755 c-0.6,0.312-1.329,0.114-1.693-0.438l-0.011-0.015L159.925,88.04l2.614-0.569c-2.541,17.74-5.066,35.46-7.678,53.189L147,193.823 v0.006c0,0.81-1.027,1.364-1.835,1.243c-0.708-0.106-1.298-0.699-1.333-1.387l-9.87-189.528l1.882,0.017l-8.569,114.104 c-0.024,0.353-0.335,0.619-0.688,0.595c-0.218-0.015-0.409-0.144-0.513-0.317l-17.195-29.557l0.852,0.083l-10.623,11.944 c-0.093,0.105-0.228,0.16-0.357,0.161L0,100.88V100.58z" fill="url(#Pattern)"/>
+            <svg:path id="ekg"
+              d="M0,100.58l98.75-0.347l-0.356,0.161l10.543-12.014c0.192-0.219,0.526-0.241,0.745-0.048 c0.042,0.037,0.081,0.085,0.108,0.131l17.389,29.442l-1.194,0.278l7.94-114.147c0.037-0.524,0.579-0.92,1.103-0.884 C135.512,3.186,136,3.576,136,4.047v0.005l10.8,189.472l-2.987-0.139l7.856-53.182c2.685-17.719,5.295-35.446,8.052-53.154 l-0.004-0.015c0.121-0.779,0.85-1.312,1.629-1.191c0.416,0.065,0.766,0.31,0.979,0.638l13.684,21.25l-1.703-0.453l15.002-7.618 l0.012-0.005c0.176-0.09,0.369-0.132,0.555-0.131l31.031,0.167l31.031,0.237c10.344,0.065,20.688,0.164,31.03,0.296L314,100.58v0.3 l-31.031,0.373c-10.344,0.138-20.688,0.242-31.031,0.312l-31.03,0.252L189.875,102l0.564-0.137l-14.934,7.755 c-0.6,0.312-1.329,0.114-1.693-0.438l-0.011-0.015L159.925,88.04l2.614-0.569c-2.541,17.74-5.066,35.46-7.678,53.189L147,193.823 v0.006c0,0.81-1.027,1.364-1.835,1.243c-0.708-0.106-1.298-0.699-1.333-1.387l-9.87-189.528l1.882,0.017l-8.569,114.104 c-0.024,0.353-0.335,0.619-0.688,0.595c-0.218-0.015-0.409-0.144-0.513-0.317l-17.195-29.557l0.852,0.083l-10.623,11.944 c-0.093,0.105-0.228,0.16-0.357,0.161L0,100.88V100.58z"
+              fill="url(#Pattern)" />
           </svg>
-        </ion-row>
-        <ion-row>
-          <ion-title>{{ statusText }}</ion-title>
-        </ion-row>
-        <ion-row>
-          <canvas id="waves"></canvas>
-        </ion-row>
+        </div>
       </ion-col>
-    </ion-grid>
+      <ion-col size="12" size-sm style="align-self: center;">
+        <div style="text-align: center;">
+          <svg style="margin: auto; max-width: 360px" viewBox="0 0 200 200">
+            <svg:g transform="translate(100 100)">
+              <svg:path transform="translate(-50 -50)" [attr.fill]="heartColor"
+                d="M92.71,7.27L92.71,7.27c-9.71-9.69-25.46-9.69-35.18,0L50,14.79l-7.54-7.52C32.75-2.42,17-2.42,7.29,7.27v0 c-9.71,9.69-9.71,25.41,0,35.1L50,85l42.71-42.63C102.43,32.68,102.43,16.96,92.71,7.27z">
+              </svg:path>
+              <animateTransform *ngIf="currentHeartRate" attributeName="transform" type="scale" values="1; 1.5; 1.25; 1.5; 1.5; 1;"
+                [attr.dur]="(60000/currentHeartRate) + 'ms'" repeatCount="indefinite" additive="sum">
+              </animateTransform>
+            </svg:g>
+          </svg>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-sm style="align-self: center;">
+        <div style="text-align: center;">
+          <ion-label [ngStyle]="bpmTextStyle">
+            {{ currentHeartRate }} bpm</ion-label>
+          <canvas style="margin: auto; max-width: 360px" id="waves"></canvas>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  </ion-content>
-
-  <ion-footer *ngIf="statusText=='Breathe...'">
-    <ion-button expand="full" color="primary" (click)="connectHeartRateSensor()">Connect...</ion-button>
-  </ion-footer>
+  <ion-row class="ion-align-items-center ion-justify-content-center ion-nowrap" style="position: fixed; left: 0; right: 0; bottom: 0">
+    <ion-button (click)="connectHeartRateSensor()" fill="clear" shape="round">
+      <ion-icon name="bluetooth-outline" color="primary" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button (click)="toggleFullScreen()" fill="clear" shape="round">
+      <ion-icon name="expand-outline" color="primary" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button (click)="toggleHelpPopover()" fill="clear" shape="round">
+      <ion-icon name="help-circle-outline" color="primary" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-row>
 
 </ion-app>
