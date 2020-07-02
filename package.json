@@ -1,8 +1,8 @@
 {
-  "name": "HeartBT",
+  "name": "heart-bt",
   "version": "0.0.1",
   "author": "cmer4",
-  "homepage": "https://ionicframework.com/",
+  "homepage": "https://github.com/cmer4/heart-bt",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -50,5 +50,5 @@
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
   },
-  "description": "An Ionic project"
+  "description": "Simple heart rate monitor web widget"
 }

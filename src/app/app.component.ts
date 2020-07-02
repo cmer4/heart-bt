@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HeartRateService } from './heart-rate.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponent } from './popover/popover.component';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ export class AppComponent {
 
   constructor(
     private heartRate: HeartRateService,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private toastController: ToastController
   ) {
   }
 
@@ -38,9 +40,23 @@ export class AppComponent {
     return await popover.present();
   }
 
-  toggleFullScreen() {
-    let winFeature = 'location=no,toolbar=no,menubar=no,scrollbars=no,resizable=yes';
-    window.open('https://heart-bt.web.app','null',winFeature);
+  async toggleFullScreen() {
+    let winFeature = 'location=no,toolbar=no,menubar=no,scrollbars=no,resizable=yes; width=900; height=240';
+    let newWindow = window.open('https://heart-bt.web.app','null', winFeature);
+    if(!newWindow || newWindow.closed || typeof newWindow.closed=='undefined') { 
+      const toast = await this.toastController.create({
+        header: 'Enable pop-up',
+        message: 'You will need to enable pop-up window for heart-bt to open in a new window with no address bar etc.',
+        position: 'bottom',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          }
+        ]
+      });
+      toast.present();
+    };
   };
 
   connectHeartRateSensor() {
